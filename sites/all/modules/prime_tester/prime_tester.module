@@ -1,0 +1,69 @@
+<?php
+
+function prime_tester_menu(){
+  $items['prime_test'] = array(
+    'title' => 'Prime Test',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('prime_tester_form'),
+    'access callback' => 'TRUE',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['prime_list_result'] = array(
+    'title' => 'These are the Primes',
+    'access callback' => TRUE,
+    'page callback' => 'prime_list_result',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function prime_tester_form(){
+  $form['top_number'] = array(
+    '#title' => 'Top Number',
+    '#type' => 'textfield',
+    '#description' => "enter a maximum number to find all primes that are less than that number",
+    '#element_validate' => array('element_validate_integer_positive'),
+    '#required' => TRUE,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Enter your Number',
+  );
+
+  return $form;
+}
+
+
+function prime_tester_tester($top_number){
+
+  $start_array = array();
+
+  for($i =2; $i <= $top_number; $i++){
+    array_push($start_array, $i);
+  };
+
+  for($i = 0; $i <= $start_array.length(); $i++){
+    $prime = $start_array[$i];
+    foreach($start_array as $key=>$number){
+      if($number % $prime == 0) {
+        array_slice($start_array, $key);
+      };
+    };
+  };
+
+return $start_array;
+}
+
+function prime_tester_form_submit($form, &$form_state){
+  $input = $form_state['values']['top_number'];
+  $result = prime_tester_tester($input);
+  $_SESSION['prime_array']= $result;
+  $form_state['redirect'] = 'prime_list_result';
+
+}
+
+function prime_tester_display(){
+  return "<p> words</p>";
+}

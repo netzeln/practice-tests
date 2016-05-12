@@ -1,0 +1,30 @@
+<?php
+class testPrimeTester extends DrupalUnitTestCase
+{
+
+  public static function getInfo()
+    {
+
+        //just returns information about the tests in this class.
+        return array(
+        'name' => 'My prime tester tests',
+        'description' => 'Test that prime_tester_tester works properly.',
+        'group' => 'Epicodus Examples Tests',
+        );
+
+    }
+
+  function testPrimeTesterTester()
+  {
+    $description = 'should return an array of [2,3,5,7,11]';
+
+    //arrange
+    $input = 12;
+
+    //act
+    $result = prime_tester_tester($input);
+
+    //assert
+    $this->assertEquals($result, array(2,3,5,7,11), $description);
+  }
+}

@@ -1,0 +1,7 @@
+name = Prime Tester
+description = finds all primes less than x
+core = 7.x
+package = Epicodus examples
+files[] = prime_tester.module
+files[] = prime_tester.test
+dependencies[] = simpletest
